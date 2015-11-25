@@ -13,13 +13,13 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class MemoryLeakActivity extends AppCompatActivity {
+public class MemoryLeakActivity extends Activity {
 
     private static final String TAG = MemoryLeakActivity.class.getSimpleName();
-    private int id;
-
     @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     private static final ArrayList<Object> container = new ArrayList<>();
+
+    private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +63,6 @@ public class MemoryLeakActivity extends AppCompatActivity {
         label.setText(txt);
     }
 
-    private static Intent newIntent(Activity activity) {
-        return new Intent(activity, MemoryLeakActivity.class);
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -78,4 +74,11 @@ public class MemoryLeakActivity extends AppCompatActivity {
         Log.i(TAG, "finalize=" + id);
         super.finalize();
     }
+
+    //-- STATIC
+
+    private static Intent newIntent(Activity activity) {
+        return new Intent(activity, MemoryLeakActivity.class);
+    }
+
 }
